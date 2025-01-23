@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomePage = () => {
+const HomePage = ({ handleAccount }) => {
   return (
     <>
       <header>
@@ -18,7 +18,9 @@ const HomePage = () => {
             </li>
           </ul>
         </nav>
-        <button className="cta">Log in</button>
+        <button className="cta" onClick={handleAccount}>
+          Log in
+        </button>
       </header>
       <section className="hero">
         <div className="hero-text">
@@ -27,7 +29,7 @@ const HomePage = () => {
             Simplify your financial journey with us. Join today and experience
             hassle-free banking.
           </p>
-          <button>Open an Account</button>
+          <button onClick={handleAccount}>Open an Account</button>
         </div>
         <div className="hero-image">
           <img

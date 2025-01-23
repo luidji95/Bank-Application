@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FormRegistration({ handleLogin, handleRegistration }) {
+function LoginRegistrationForm({ handleLogin, handleRegistration }) {
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -12,7 +12,7 @@ function FormRegistration({ handleLogin, handleRegistration }) {
 
   return (
     <>
-      <h1 className="h1">To-Do-Manager Application</h1>
+      <h1 className="h1">Log in or Create Account</h1>
       <div className="form-container">
         <div className="form-wrapper">
           <div className="form-header">
@@ -156,4 +156,4 @@ function FormRegistration({ handleLogin, handleRegistration }) {
   );
 }
 
-export default FormRegistration;
+export default LoginRegistrationForm;
