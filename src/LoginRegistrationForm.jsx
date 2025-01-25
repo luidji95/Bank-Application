@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  goToLogin,
+  loginUser,
+  registrationUser,
+} from "./Redux/Slices/userSlice";
 
-function LoginRegistrationForm({ handleLogin, handleRegistration }) {
+function LoginRegistrationForm() {
+  const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -60,8 +67,11 @@ function LoginRegistrationForm({ handleLogin, handleRegistration }) {
                 <button
                   type="submit"
                   className="btn"
-                  onClick={() => {
-                    handleLogin(loginEmail, loginPassword);
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(
+                      loginUser({ email: loginEmail, password: loginPassword })
+                    );
                   }}
                 >
                   Log In
@@ -83,10 +93,12 @@ function LoginRegistrationForm({ handleLogin, handleRegistration }) {
                     alert("Password must be at least 6 characters long!");
                     return;
                   }
-                  handleRegistration(
-                    registrationUserName,
-                    registrationEmail,
-                    registrationPassword
+                  dispatch(
+                    registrationUser({
+                      email: registrationEmail,
+                      password: registrationPassword,
+                      username: registrationUserName,
+                    })
                   );
                   alert("Registration successful! Please log in.");
                   setIsLogin(true); // Automatski prebacuje na login formu

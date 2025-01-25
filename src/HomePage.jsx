@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { goToLogin } from "./Redux/Slices/userSlice";
 
-const HomePage = ({ handleAccount }) => {
+const HomePage = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <header>
@@ -18,7 +21,7 @@ const HomePage = ({ handleAccount }) => {
             </li>
           </ul>
         </nav>
-        <button className="cta" onClick={handleAccount}>
+        <button className="cta" onClick={() => dispatch(goToLogin())}>
           Log in
         </button>
       </header>
@@ -29,7 +32,7 @@ const HomePage = ({ handleAccount }) => {
             Simplify your financial journey with us. Join today and experience
             hassle-free banking.
           </p>
-          <button onClick={handleAccount}>Open an Account</button>
+          <button onClick={() => dispatch(goToLogin())}>Open an Account</button>
         </div>
         <div className="hero-image">
           <img
