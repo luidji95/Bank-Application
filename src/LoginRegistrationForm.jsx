@@ -68,7 +68,7 @@ function LoginRegistrationForm() {
                   type="submit"
                   className="btn"
                   onClick={(e) => {
-                    e.preventDefault();
+                    // e.preventDefault();
                     dispatch(
                       loginUser({ email: loginEmail, password: loginPassword })
                     );

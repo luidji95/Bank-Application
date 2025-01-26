@@ -1,9 +1,23 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { goToLogin } from "./Redux/Slices/userSlice";
+import { Link } from "react-router";
+
+{
+  /* <Link to="/dashboard">Dashboard</Link>;
+
+<Link
+  to={{
+    pathname: "/some/path",
+    search: "?query=string",
+    hash: "#hash",
+  }}
+/> */
+}
 
 const HomePage = () => {
   const dispatch = useDispatch();
+
   return (
     <>
       <header>
@@ -21,9 +35,9 @@ const HomePage = () => {
             </li>
           </ul>
         </nav>
-        <button className="cta" onClick={() => dispatch(goToLogin())}>
-          Log in
-        </button>
+        <Link className="cta" to="/login">
+          Login
+        </Link>
       </header>
       <section className="hero">
         <div className="hero-text">

@@ -12,10 +12,6 @@ const userSlice = createSlice({
   name: "User",
   initialState,
   reducers: {
-    goToLogin(state) {
-      state.isLoggedIn = false;
-      state.isOnLoginPage = true;
-    },
     loginUser(state, action) {
       const { email, password } = action.payload;
       const user = state.users.find(
@@ -51,8 +47,18 @@ const userSlice = createSlice({
         alert("Registration successful! You can now log in");
       }
     },
+    addIncome(state, actions) {
+      const { amount, reason } = actions.payload;
+      state.currentUser.balance += amount;
+      state.currentUser.transactions.push({
+        reason,
+        amount,
+        date: new Date().toISOString.split("T")[0],
+      });
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { goToLogin, loginUser, registrationUser } = userSlice.actions;
+export const { goToLogin, loginUser, registrationUser, addIncome, addExpense } =
+  userSlice.actions;
