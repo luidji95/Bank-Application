@@ -3,21 +3,7 @@ import { useDispatch } from "react-redux";
 import { goToLogin } from "./Redux/Slices/userSlice";
 import { Link } from "react-router";
 
-{
-  /* <Link to="/dashboard">Dashboard</Link>;
-
-<Link
-  to={{
-    pathname: "/some/path",
-    search: "?query=string",
-    hash: "#hash",
-  }}
-/> */
-}
-
 const HomePage = () => {
-  const dispatch = useDispatch();
-
   return (
     <>
       <header>
@@ -46,7 +32,9 @@ const HomePage = () => {
             Simplify your financial journey with us. Join today and experience
             hassle-free banking.
           </p>
-          <button onClick={() => dispatch(goToLogin())}>Open an Account</button>
+          <Link className="cta" to={"/registration"}>
+            Open an account
+          </Link>
         </div>
         <div className="hero-image">
           <img
