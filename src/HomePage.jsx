@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const HomePage = () => {
   return (
     <>
-      <header>
+      <header className="header">
         <div className="logo">Horizon</div>
         <nav>
           <ul>

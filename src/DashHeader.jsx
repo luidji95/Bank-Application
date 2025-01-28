@@ -1,6 +1,11 @@
-import React from "react";
+// DashHeader.jsx
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-const DashHeader = ({ user }) => {
+const DashHeader = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="dash-header">
       <div className="logo-search">
@@ -22,9 +27,22 @@ const DashHeader = ({ user }) => {
         </div>
       </div>
       <div className="user-info">
-        <p>Hi {user.username}!</p>
-        <div className="user-picture">
-          <img src={user.profilePicture} alt="User" />
+        <p>Hi {currentUser?.username}!</p>
+        <div
+          className="user-picture"
+          onMouseEnter={() => setMenuOpen(true)}
+          onMouseLeave={() => setMenuOpen(false)}
+        >
+          <img src={currentUser?.profilePicture} alt="User" />
+          {menuOpen && (
+            <div className="dropdown-menu">
+              <ul>
+                <li>Profile</li>
+                <li>Settings</li>
+                <li>Logout</li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </header>

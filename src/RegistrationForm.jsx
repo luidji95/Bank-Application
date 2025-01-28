@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registrationUser } from "./Redux/Slices/userSlice";
+import { Link } from "react-router-dom";
 
 function RegistrationForm({ onSuccess }) {
   const dispatch = useDispatch();
@@ -95,6 +96,8 @@ function RegistrationForm({ onSuccess }) {
       <button type="submit" className="btn">
         Create Account
       </button>
+      <p className="pte">Already have an account?</p>
+      <Link to={"/login"}>Log in</Link>
     </form>
   );
 }

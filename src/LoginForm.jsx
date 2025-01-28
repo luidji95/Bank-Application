@@ -1,11 +1,20 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "./Redux/Slices/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/dashboard");
+    }
+  }, [currentUser, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +51,10 @@ function LoginForm() {
       <button type="submit" className="btn">
         Log In
       </button>
+      <p className="pte">Don't have an account?</p>
+      <Link className="cta" to={"/registration"}>
+        Sign up
+      </Link>
     </form>
   );
 }

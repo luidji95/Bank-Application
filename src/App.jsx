@@ -3,11 +3,10 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import HomePage from "./HomePage";
-import LoginRegistrationForm from "./LoginRegistrationForm";
+import { useSelector } from "react-redux";
 import Dashboard from "./Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { useSelector } from "react-redux";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
