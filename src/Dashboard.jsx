@@ -24,7 +24,16 @@ const Dashboard = () => {
           <div className="transaction">
             [Transactions will be displayed here]
           </div>
-          <div className="income-expense"></div>
+          <div className="income-expense">
+            <div className="income">
+              <p>Income</p>
+              <p>${currentUser.income}</p>
+            </div>
+            <div className="expense">
+              <p>Expense</p>
+              <p>${currentUser.expense}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
