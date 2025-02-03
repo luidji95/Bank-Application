@@ -1,10 +1,18 @@
-// DashHeader.jsx
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "./Redux/Slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const DashHeader = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser()); // Resetuje korisnika u Redux-u
+    navigate("/login"); // Prebacuje korisnika nazad na Login stranicu
+  };
 
   return (
     <header className="dash-header">
@@ -26,6 +34,7 @@ const DashHeader = () => {
           </div>
         </div>
       </div>
+
       <div className="user-info">
         <p>Hi {currentUser?.username}!</p>
         <div
@@ -39,7 +48,7 @@ const DashHeader = () => {
               <ul>
                 <li>Profile</li>
                 <li>Settings</li>
-                <li>Logout</li>
+                <li onClick={handleLogout}>Logout</li> {/* Dodajemo logout */}
               </ul>
             </div>
           )}

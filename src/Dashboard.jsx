@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DashHeader from "./DashHeader";
-import BalanceSection from "./BalanceSection";
+import RequestMoneyForm from "./RequestMoneyForm";
+import SendMoneyForm from "./SendMoneyForm";
 
 const Dashboard = () => {
+  const [showSendForm, setShowSendForm] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  const handleRequestClick = () => {
+    setShowRequestForm(true);
+  };
+
+  const handleSendClick = () => {
+    setShowSendForm(true);
+  };
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
+  };
+
   return (
     <div className="dashboard">
       <DashHeader />
@@ -16,26 +32,55 @@ const Dashboard = () => {
           </div>
           <div className="income-expense-adding-btn">
             <button>Add</button>
-            <button>Send</button>
-            <button>Request</button>
+            <button onClick={handleSendClick}>Send</button>
+            <button onClick={handleRequestClick}>Request</button>
           </div>
         </div>
+
         <div className="transaction-income-expense">
           <div className="transaction">
-            [Transactions will be displayed here]
+            <h3>Recent Transactions</h3>
+            <ul className="transaction-list">
+              {currentUser.transactions.map((transaction, index) => (
+                <li key={index} className="transaction-item">
+                  <span className="transaction-reason">
+                    {transaction.reason}
+                  </span>
+                  <span
+                    className={`transaction-amount ${
+                      transaction.amount < 0 ? "negative" : "positive"
+                    }`}
+                  >
+                    ${transaction.amount}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="income-expense">
             <div className="income">
-              <p>Income</p>
-              <p>${currentUser.income}</p>
+              <h3>💰 Current Balance</h3>
+              <p>${currentUser.balance}</p>
             </div>
             <div className="expense">
-              <p>Expense</p>
-              <p>${currentUser.expense}</p>
+              <h3>📉 Total Expenses</h3>
+              <p>
+                $
+                {Math.abs(
+                  currentUser.transactions
+                    .filter((transaction) => transaction.amount < 0)
+                    .reduce((acc, transaction) => acc + transaction.amount, 0)
+                )}
+              </p>
             </div>
           </div>
         </div>
       </div>
+
+      {showRequestForm && (
+        <RequestMoneyForm setShowRequestForm={setShowRequestForm} />
+      )}
+      {showSendForm && <SendMoneyForm setShowSendForm={setShowSendForm} />}
     </div>
   );
 };

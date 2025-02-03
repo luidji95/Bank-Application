@@ -47,18 +47,84 @@ const userSlice = createSlice({
         alert("Registration successful! You can now log in");
       }
     },
-    addIncome(state, actions) {
-      const { amount, reason } = actions.payload;
+    addIncome(state, action) {
+      const { amount, reason } = action.payload;
       state.currentUser.balance += amount;
+
       state.currentUser.transactions.push({
         reason,
         amount,
-        date: new Date().toISOString.split("T")[0],
+        date: new Date().toISOString().split("T")[0],
       });
+    },
+    sendMoney(state, action) {
+      const { amount, recipientAccount } = action.payload;
+
+      if (state.currentUser.balance < amount) {
+        alert("Insufficient funds!");
+        return;
+      }
+
+      const senderIndex = state.users.findIndex(
+        (user) => user.userId === state.currentUser.userId
+      );
+      const recipientIndex = state.users.findIndex(
+        (user) => user.cardNumber.toString() === recipientAccount
+      );
+
+      if (recipientIndex === -1) {
+        alert("Recipient account not found!");
+        return;
+      }
+
+      const updatedUsers = [...state.users];
+
+      updatedUsers[senderIndex] = {
+        ...updatedUsers[senderIndex],
+        balance: updatedUsers[senderIndex].balance - amount,
+        transactions: [
+          ...updatedUsers[senderIndex].transactions,
+          {
+            reason: `Sent to ${updatedUsers[recipientIndex].username}`,
+            amount: -amount,
+            date: new Date().toISOString().split("T")[0],
+          },
+        ],
+      };
+
+      updatedUsers[recipientIndex] = {
+        ...updatedUsers[recipientIndex],
+        balance: updatedUsers[recipientIndex].balance + amount,
+        transactions: [
+          ...updatedUsers[recipientIndex].transactions,
+          {
+            reason: `Received from ${updatedUsers[senderIndex].username}`,
+            amount: amount,
+            date: new Date().toISOString().split("T")[0],
+          },
+        ],
+      };
+
+      state.users = updatedUsers;
+      state.currentUser = updatedUsers[senderIndex];
+
+      alert(
+        `Successfully sent $${amount} to ${updatedUsers[recipientIndex].username}!`
+      );
+    },
+    logoutUser(state) {
+      state.currentUser = null;
+      state.isLoggedIn = false;
     },
   },
 });
 
 export default userSlice.reducer;
-export const { goToLogin, loginUser, registrationUser, addIncome, addExpense } =
-  userSlice.actions;
+export const {
+  goToLogin,
+  loginUser,
+  registrationUser,
+  addIncome,
+  sendMoney,
+  logoutUser,
+} = userSlice.actions;

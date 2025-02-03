@@ -22,40 +22,42 @@ function LoginForm() {
   };
 
   return (
-    <form className="form-section active" onSubmit={handleSubmit}>
-      <h2>Log In</h2>
-      <div className="form-group">
-        <label htmlFor="loginEmail">Email</label>
-        <input
-          type="email"
-          id="loginEmail"
-          name="loginEmail"
-          placeholder="Unesite email"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="loginPassword">Password</label>
-        <input
-          type="password"
-          id="loginPassword"
-          name="loginPassword"
-          placeholder="Unesite lozinku"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit" className="btn">
-        Log In
-      </button>
-      <p className="pte">Don't have an account?</p>
-      <Link className="cta" to={"/registration"}>
-        Sign up
-      </Link>
-    </form>
+    <div className="helper">
+      <form className="form-section active" onSubmit={handleSubmit}>
+        <h2>Log In</h2>
+        <div className="form-group">
+          <label htmlFor="loginEmail">Email</label>
+          <input
+            type="email"
+            id="loginEmail"
+            name="loginEmail"
+            placeholder="Unesite email"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="loginPassword">Password</label>
+          <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            placeholder="Unesite lozinku"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn">
+          Log In
+        </button>
+        <p className="pte">Don't have an account?</p>
+        <Link className="cta" to={"/registration"}>
+          Sign up
+        </Link>
+      </form>
+    </div>
   );
 }
 
