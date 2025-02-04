@@ -12,7 +12,7 @@ const RequestMoneyForm = ({ setShowRequestForm }) => {
     e.preventDefault();
 
     if (password !== currentUser.password) {
-      alert("Incorrect password!"); // Ako šifra nije tačna
+      alert("Incorrect password!");
       return;
     }
 
@@ -22,11 +22,10 @@ const RequestMoneyForm = ({ setShowRequestForm }) => {
       return;
     }
 
-    // Ako je sve ispravno, dodajemo pare korisniku
     dispatch(addIncome({ amount, reason: "Requested Funds" }));
     alert(`Successfully requested $${amount}!`);
 
-    setShowRequestForm(false); // Zatvara formu
+    setShowRequestForm(false);
   };
 
   return (

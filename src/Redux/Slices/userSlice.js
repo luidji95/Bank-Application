@@ -37,7 +37,7 @@ const userSlice = createSlice({
           password: password,
           userId: state.users.length + 1,
           profilePicture: "bank-profile-pic/picgit.JPG",
-          balance: 160000,
+          balance: 200000,
           cardNumber: `${Date.now()}${state.users.length + 1}`,
 
           transactions: [],
